@@ -32,39 +32,33 @@ DomElement.prototype.blockWalk = function(elem){
 
 DomElement.prototype.createElement = function (){
     const sliceSelector = this.selector.slice(0, 1)
-    const newDiv = document.createElement('div')
+
+    let newElem = ''
 
     if(sliceSelector === '.'){
-        newDiv.classList.add(this.selector.slice(1))
-        newDiv.textContent = 'hello world'
-        newDiv.style.cssText = `
-        height: ${this.height};
-        width: ${this.width};
-        background: ${this.bg};
-        font-size: ${this.fontSize};
-        position: absolute;
-        `
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.append(newDiv)
-            this.blockWalk(newDiv)
-        })
-    } else if(sliceSelector === '#'){
-        newDiv.setAttribute('id', this.selector.slice(1))
-        newDiv.textContent = 'hello world'
-        newDiv.style.cssText = `
-        height: ${this.height};
-        width: ${this.width};
-        background: ${this.bg};
-        font-size: ${this.fontSize};
-        position: absolute;
-        `
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.append(newDiv)
-            this.blockWalk(newDiv)
-        })
+        newElem = document.createElement('div')
+        newElem.classList.add(this.selector.slice(1))
+        newElem.textContent = 'div'
+    }else if(sliceSelector === '#'){
+        newElem = document.createElement('p')
+        newElem.setAttribute('id', this.selector.slice(1))
+        newElem.textContent = 'paragraph'
     }
+
+    newElem.style.cssText = `
+    height: ${this.height};
+    width: ${this.width};
+    background: ${this.bg};
+    font-size: ${this.fontSize};
+    position: absolute;
+    left: 0;
+    top: 0;
+    `
+
+    document.addEventListener('DOMContentLoaded', (e) => {
+        document.body.append(newElem)
+        this.blockWalk(newElem)
+    })
 }
 
 
